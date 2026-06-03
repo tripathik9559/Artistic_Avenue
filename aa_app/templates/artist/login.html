@@ -1,0 +1,23 @@
+{%extends 'artist/main.html'%}
+{%block content%}
+
+
+<div class="dc">
+    <div class="frm">
+        <h1 class="text-center beige mb-4" style="font-size: 3rem; font-weight: 800;">Artist Login</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="phone" name="phone" placeholder=" ">
+                <label for="phone">Phone</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="password" name="password" placeholder=" ">
+                <label for="password">Password</label>
+            </div>
+            <a href="/artist_register/">Register Here...</a>
+            <button type="submit" class="btna">Login</button>
+        </form>
+    </div>
+</div>
+{%endblock%}

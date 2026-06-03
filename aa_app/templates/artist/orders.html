@@ -1,0 +1,24 @@
+{%extends 'artist/main.html'%}
+{%load static%}
+{%block content%}
+
+<h1 class="pacifico mb-5 beige text-center" style="margin-top: 7vh ;font-size: 4.5rem; font-weight: 900;">Orders</h1>
+
+<div class="dc">
+    {%for o in obj%}
+    <div class="cardss" >
+    <div class="imdiv">
+        <img src="{{o.art.pic.url}}" alt="">
+    </div>
+        <h3 class="mx-4">Order By: {{o.user.name}}</h3>
+        <h3 class="mx-4">Art Name: {{o.art.name}}</h3>
+        <h3 class="mx-4">Artist Name: {{o.art.artist.name}}</h3>
+        <h4 class="mx-4">Price: {{o.art.price}}</h4>
+        <h5 class="mx-4">Status: {{o.status}}</h5>
+        <p class="mx-4">Order Date: {{o.created}}</p>
+        <a class="mx-4" href="{{o.payment.url}}">Payment Screenshot</a>
+    </div>
+    {%endfor%}
+
+</div>
+{%endblock%}

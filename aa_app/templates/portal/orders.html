@@ -1,0 +1,41 @@
+{%extends 'html/main.html'%}
+{%load static%}
+{%block content%}
+
+<h1 class="pacifico mb-5 beige text-center" style="margin-top: 7vh ;font-size: 4.5rem; font-weight: 900;">Orders</h1>
+
+<div class="dc">
+
+    {%for o in orders%}
+    <div class="cardss" >
+    <div class="imdiv">
+        <img src="{{o.art.pic.url}}" alt="">
+    </div>
+        <h3 class="mx-4">Order By: {{o.user.name}}</h3>
+        <h3 class="mx-4">Art Name: {{o.art.name}}</h3>
+        <h3 class="mx-4">Artist Name: {{o.art.artist.name}}</h3>
+        <h4 class="mx-4">Price: {{o.art.price}}</h4>
+        <p class="mx-4">Order Date: {{o.created}}</p>
+        <a class="mx-4" href="{{o.payment.url}}">Payment Screenshot</a>
+        {%if o.status == "Confirmed"%}
+        <h5 class="mx-4">Status: {{o.status}}</h5>
+        {%else%}
+        <form method="post">
+            {%csrf_token%}
+            <input type="hidden" name="order_id" value="{{ o.id }}">
+            <div class="form-floating mx-5 mt-3">
+                <select class="form-select" name="status" id="">
+                    <option value="Pending">Pending</option>
+                    <option value="Confirmed">Confirm</option>
+                </select>
+                <label for="" class="form-label">Status</label>
+            </div>
+            <button class="btna my-3">Update</button>
+        </form>
+        {%endif%}
+    </div>
+    {%endfor%}
+
+</div>
+
+{%endblock%}

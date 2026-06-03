@@ -1,0 +1,42 @@
+
+
+{%extends 'artist/main.html'%}
+{%load static%}
+{%block content%}
+
+<style>
+    p{
+        color:rgb(255, 248, 238);
+    }
+</style>
+
+<div class="dc">
+    <div class="frm">
+        <div class="d-flex p-0 mb-4">
+            <img src="{{u.pic.url}}" style="height: 70px; width: 70px; border-radius: 50%;" alt="">
+            <h3 class="ms-3 beige mt-2">{{u.name}}</h3>
+        </div>
+        <div class="mb-4 px-2" style="overflow: scroll; scroll-behavior: auto; height: 300px !important;">
+            {% for message in msg %}
+                {% if message.user_message%}   
+                <p class="m-0" style="font-size: 10px;">{{message.created}}</p>
+                    <p class="text-left"><strong>{{ message.user.name }}:</strong> {{ message.user_message }}</p>
+                {% else %}
+                <p class="text-end m-0" style="font-size: 10px;">{{message.created}}</p>
+                    <p class="text-end"> <strong>You:</strong>{{ message.artist_message }}</p>
+                    
+                {% endif %}
+            {% endfor %}
+        </div>
+    
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-floating">
+                <textarea class="form-control" id="message" name="message"></textarea>
+                <label class="form-label" for="message">Message:</label><br>
+                </div>
+                <button class="btna" type="submit">Send</button>
+        </form>
+    </div>
+</div>
+{%endblock%}

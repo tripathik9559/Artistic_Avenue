@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {%include 'common/css.html'%}
+    <title>Artist</title>
+</head>
+<body>
+    {%include 'common/header.html'%}
+    {% if messages %}
+    <div class="container mt-4">
+        {% for msg in messages %}
+            <div class="alert alert-{{ message.tags }} fade show" role="alert">
+                <p class="text-center">{{ msg }}</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+    {%block content%}
+    {%endblock%}
+
+    {%include 'common/footer.html'%}
+    <script>
+        function getRandomColor() {
+            var letters = 'CDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 4)];
+            }
+            return color;
+        }
+    
+        var cards = document.querySelectorAll('.cards');
+        cards.forEach(function(card) {
+            card.style.backgroundColor = getRandomColor();
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    {%block scripts%}
+    {%endblock%}
+</body>
+</html>

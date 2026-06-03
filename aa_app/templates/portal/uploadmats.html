@@ -1,0 +1,52 @@
+{% extends 'portal/main.html' %}
+{% block content %}
+    
+    <div class="dc">
+        <div class="frm">
+            <h2 class="mb-4 text-center beige">Upload Video</h2>
+            <form action="/uploadvideo/" method="post">
+                {% csrf_token %}
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" placeholder="" id="name" name="name" required>
+                    <label for="name">Name</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <textarea class="form-control" id="desc" placeholder="" name="desc" required></textarea>
+                    <label for="desc">Description</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" placeholder="" id="link" name="link" required>
+                    <label for="link">Link</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" placeholder="" id="category" name="category" required>
+                    <label for="category">Category</label>
+                </div>
+                <button type="submit" class="btna">Upload</button>
+            </form>
+        </div>
+        <div class="frm">
+            <h2 class="mb-4 text-center beige">Upload PDF</h2>
+            <form action="/uploadpdf/" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" placeholder="" id="name" name="name" required>
+                    <label for="name">Name</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <textarea class="form-control" id="desc" placeholder="" name="desc" required></textarea>
+                    <label for="desc">Description</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="file" class="form-control" placeholder="" id="link" name="link" required>
+                    <label for="link">Link</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" placeholder="" id="category" name="category" required>
+                    <label for="category">Category</label>
+                </div>
+                <button type="submit" class="btna">Upload</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{%extends 'artist/main.html'%}
+{%load static%}
+{%block content%}
+<div class="dc">
+    {%for a in obj%}
+    <div class="cards" style="width: 350px;">
+        <div class="imdiv">
+            <img src="{{a.pic.url}}" alt="">
+        </div>
+        <h3 class="text-center mb-3">{{a.name}}</h3>
+    </div>
+    
+        {%endfor%}
+</div>
+
+
+{%endblock%}

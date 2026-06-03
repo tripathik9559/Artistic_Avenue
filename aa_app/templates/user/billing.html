@@ -1,0 +1,28 @@
+{%extends 'html/main.html'%}
+{%load static%}
+{%block content%}
+<div class="dc">
+    <div class="cards" style="width: 350px; background-color: rgb(255, 218, 218);">
+        <div class="imdiv">
+            <img src="{{art.pic.url}}" alt="">
+        </div>
+        <h3 class="text-center my-3">{{art.name}}</h3>
+        <h4 class="ms-3">Artist: {{art.artist.name}}</h4>
+        <h4 class="ms-3">Category: {{art.art_type}}</h4>
+        <h4 class="ms-3">Price: {{art.price}} RS</h4>
+        <p class="mx-3">Description: {{art.desc}}</p>
+        
+</div>
+    <div class="frm">
+        <img class="d-block mx-auto mb-4" src="{% static 'images/QR.jpg'%}" style="height: 350px; height: 350px;" alt="">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-floating mb-3">
+                <input type="file" class="form-control" placeholder="" id="pic" name="pic" required>
+                <label for="pic">Screenshot</label>
+            </div>
+            <button type="submit" class="btna">Buy Now</button>
+        </form>
+    </div>
+</div>
+{%endblock%}

@@ -1,0 +1,23 @@
+{%extends 'html/main.html'%}
+{%load static%}
+{%block content%}
+<h1 class="pacifico beige mb-5 text-center" style="margin-top: 7vh ;font-size: 4.5rem; font-weight: 900;">Shop</h1>
+
+<div class="dc">
+    {%for a in obj%}
+    <div class="cards" style="width: 350px; background-color: rgb(255, 218, 218);">
+        <div class="imdiv">
+            <img src="{{a.pic.url}}" alt="">
+        </div>
+        <h3 class="text-center my-3">{{a.name}}</h3>
+        <h4 class="ms-3">Artist: {{a.artist.name}}</h4>
+        <h4 class="ms-3">Category: {{a.art_type}}</h4>
+        <h4 class="ms-3">Price: {{a.price}} RS</h4>
+        <p class="mx-3">Description: {{a.desc}}</p>
+        {%if not user.artist and not user.admin%}
+            <button class="btna my-3 w-50 d-block mx-auto" onclick="window.location.href='{%url 'billing' a.id%}';">Buy Now</button>
+        {%endif%}
+    </div>
+    {%endfor%}
+</div>
+{%endblock%}

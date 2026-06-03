@@ -1,0 +1,26 @@
+{%extends 'portal/main.html'%}
+{%block content%}
+
+
+<div class="dc">
+    <div class="frm">
+        <h1 class="text-center beige mb-4" style="font-size: 3rem; font-weight: 800;">Contact Us</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="id" name="name" placeholder=" ">
+                <label for="id">Name</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="id" name="email" placeholder=" ">
+                <label for="id">Email</label>
+            </div>
+            <div class="form-floating mb-3">
+                <textarea type="password" class="form-control" id="password" name="query" placeholder=" "></textarea>
+                <label for="password">Question</label>
+            </div>
+            <button type="submit" class="btna">Submit</button>
+        </form>
+    </div>
+</div>
+{%endblock%}

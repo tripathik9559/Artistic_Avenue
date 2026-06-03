@@ -1,0 +1,96 @@
+{% extends 'html/main.html' %}
+{% load static %}
+{% block content %}
+<h1 class="pacifico mb-5 beige text-center" style="margin-top: 7vh ;font-size: 4.5rem; font-weight: 900;">Tutorials</h1>
+
+
+<div style="position: absolute; left: 0; top:150px; width: 100px;" >
+    <div class="filter-buttons">
+        <button style="width: 80px;" id="all-btn" class="filter-btn active btna" onclick="filterSelection('all')">All</button>
+        <button style="width: 80px;" id="videos-btn" class="filter-btn btna" onclick="filterSelection('videos')">Videos</button>
+        <button style="width: 80px;" id="pdfs-btn" class="filter-btn btna" onclick="filterSelection('pdfs')">PDFs</button>
+    </div>
+</div>
+
+<div class="dc" id="videos-container">
+    <div class="cards">
+        <div class="imdiv">
+            <img src="{%static 'images/logo.png'%}" alt="">
+        </div>
+        <h3 class="text-center mb-3">Video Files</h3>
+    </div>
+    {% for v in videos %}
+    <div class="cards">
+        <div class="imdiv">
+            <iframe width="640" height="360" src="https://www.youtube.com/embed/{{ v.link }}"
+                title="Drawing" frameborder="0"
+                allow=" autoplay; clipboard-write; encrypted-media;"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <h3 class="text-center mb-3">{{ v.name }}</h3>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="dc" id="pdfs-container">
+    <div class="cards" style="width: 350px;">
+        <div class="imdiv">
+<img src="{%static 'images/logo.png'%}" alt="">
+        </div>
+        <h3 class="text-center mb-3">PDF Files</h3>
+    </div>
+    {% for p in pdfs %}
+    <div class="cards" style="width: 350px;" onclick="window.location.href='{{ p.link.url }}';">
+        <div class="imdiv">
+            <img src="{% static 'images/pdf.png' %}" alt="">
+        </div>
+        <h3 class="text-center mb-4">{{ p.name }}</h3>
+        <p class="ms-3">Category: {{ p.category }}</p>
+        <p class="ms-3">Description: {{ p.desc }}</p>
+        <button class="btna mb-3" onclick="window.location.href='{{ p.link.url }}';">View PDF</button>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+    function filterSelection(filter) {
+        var i;
+        var videosContainer = document.getElementById("videos-container");
+        var pdfsContainer = document.getElementById("pdfs-container");
+        var filterButtons = document.getElementsByClassName("filter-btn");
+
+        for (i = 0; i < filterButtons.length; i++) {
+            filterButtons[i].classList.remove("active");
+        }
+
+        if (filter === "all") {
+            for (i = 0; i < videosContainer.children.length; i++) {
+                videosContainer.children[i].style.display = "block";
+            }
+            for (i = 0; i < pdfsContainer.children.length; i++) {
+                pdfsContainer.children[i].style.display = "block";
+            }
+            document.getElementById("all-btn").classList.add("active");
+        } else if (filter === "videos") {
+            for (i = 0; i < videosContainer.children.length; i++) {
+                videosContainer.children[i].style.display = "block";
+            }
+            for (i = 0; i < pdfsContainer.children.length; i++) {
+                pdfsContainer.children[i].style.display = "none";
+            }
+            document.getElementById("videos-btn").classList.add("active");
+        } else if (filter === "pdfs") {
+            for (i = 0; i < videosContainer.children.length; i++) {
+                videosContainer.children[i].style.display = "none";
+            }
+            for (i = 0; i < pdfsContainer.children.length; i++) {
+                pdfsContainer.children[i].style.display = "block";
+            }
+            document.getElementById("pdfs-btn").classList.add("active");
+        }
+    }
+
+    filterSelection("all");
+</script>
+
+{% endblock %}

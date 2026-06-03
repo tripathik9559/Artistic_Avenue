@@ -1,0 +1,14 @@
+
+{%extends 'html/main.html'%}
+{%load static%}
+{%block content%}
+<div class="d-flex mx-auto mt-5" style="flex-direction: column; align-items: center;">
+    {% for m in msg %}
+    <div onclick="window.location.href='{% url 'chat' m.artist.id %}';" class="cards p-2 " style="border-radius: 2rem;width: 300px; ">
+        <img src="{{m.artist.pic.url}}" style="height: 70px; width: 70px; border-radius: 50%;" alt="">
+        <a href="{% url 'chat' m.artist.id %}" class="mt-3 ms-3">{{ m.artist.name }}</a>
+    </div>
+{% endfor %}
+
+</div>
+{%endblock%}

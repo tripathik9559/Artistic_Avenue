@@ -1,0 +1,298 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Pacifico&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.scrl::-webkit-scrollbar, .scrl::-moz-scrollbar{
+  display: none;
+}
+.navbar{
+.dropdown-menu{
+  background-color: rgba(44, 22, 6, 0.623);
+  backdrop-filter: blur(10px);
+  li:hover{
+    a{
+      color:black !important;
+    }
+  }
+}
+  a{
+    color:white !important;
+  }
+}
+body{
+background-color: rgb(255, 251, 247);
+background-image: url(../images/bg.avif);
+background-position: center;
+background-size: cover;
+background-attachment: fixed;
+
+
+}
+
+input, select, textarea{
+  border-radius: 1rem !important;
+  
+}
+
+.f3{
+  font-size: 3rem;
+  font-weight: 800;
+}
+
+.f4{
+  font-size: 4rem;
+  font-weight: 900;
+}
+
+.beige{
+  color:rgb(255, 249, 237) !important;
+}
+
+.poppins{
+  font-family: 'Poppins';
+}
+
+.pacifico{
+    font-family: 'Pacifico';
+    font-weight: 700;
+}
+.oswald{
+    font-family: 'Oswald';
+}
+
+.frm{
+  backdrop-filter: blur(10px) !important;
+  background-color: rgba(0, 0, 0, 0.493) !important;
+  a{
+    color: rgb(255, 14, 86);
+  }
+    margin: 5vh;
+    background-color: white;
+
+    border-radius: 2rem;
+    max-width: 500px;
+    height: fit-content;
+    padding: 40px 30px;
+    textarea{
+        height: 100px !important;
+    }
+}
+.dc{
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    padding: 0 5vw;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+
+
+
+.btna{
+  font-family: 'Oswald';
+  margin: 5px auto;
+  color: white;
+  background-color: rgb(0, 0, 0);
+  border: none;
+  font-weight: 600;
+  display: block;
+  padding: 10px 30px;
+  border-radius: 2rem;
+  transition: all 0.3s;
+  &:hover{
+  background-color: rgb(255, 255, 255);
+  color: rgb(43, 43, 43);
+}
+}
+
+
+
+
+
+
+
+
+.cards{
+  box-shadow: 5px 5px 30px grey;
+  border-radius: 2rem;
+  a{
+    color:rgb(255, 42, 77) !important;
+  }
+  background-color: rgb(255, 255, 255);
+  transition: all 0.3s;
+  h3{
+      font-size: 1.3rem;
+      font-weight: 800;
+      font-family: 'Oswald';
+  }
+  h4{
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: 'Poppins';
+  }
+  h5{
+      font-size: 0.8rem;
+      font-weight: 400;
+      font-family: 'Oswald';
+  }
+  p{
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: 'Poppins';
+  }
+  margin: 50px 1.5vw;
+  width: 480px;
+  .imdiv{
+    border-radius: 2rem;
+      margin: 0 0 25px 0;
+      padding: 0;
+      overflow: hidden;
+      height: 360px;
+      width: 100%;
+      img{
+        transition: all 0.3s;
+        height: 360px;
+        width: 100%;
+    }
+  }
+  iframe{
+      height: 360px;
+      width: 100%;
+  }
+  
+
+
+  &:hover{
+    img{
+      transform: scale(1.05);
+    }
+    box-shadow: 1px 1px 50px rgb(177, 177, 177);
+          transform: translateY(-1%)
+  }
+}
+
+
+
+
+
+
+/*Navbar*/
+.nav-item{
+  
+    margin-left: 10px;
+    margin-right: 10px;
+    position: relative;
+    a{
+      
+        color: rgb(0, 0, 0);
+    }
+
+}
+
+.nav-item::before,
+.nav-item::after {
+  z-index: 5;
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  bottom: 0;
+  background-color: rgb(255, 27, 76); 
+  transition: width 0.3s ease;
+}
+
+.nav-item::before {
+  left: 0; 
+}
+
+.nav-item::after {
+  right: 0;
+  
+}
+
+.nav-item:hover::before {
+  width: 100%;
+}
+
+.nav-item:hover::after {
+  width: 100%;
+}
+
+.navbar-brand{
+  transition: all 0.2s;
+  &:hover{
+    translate: 3%;
+  color: rgb(188, 0, 50);
+}
+&:active{
+  scale: 0.9;
+}
+}
+
+
+
+
+
+
+.cardss{
+  a{
+    color:rgb(255, 42, 77) !important;
+  }
+  background-color: rgb(255, 255, 255);
+  transition: all 0.3s;
+  h3{
+      font-size: 1.3rem;
+      font-weight: 800;
+      font-family: 'Oswald';
+  }
+  h4{
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: 'Poppins';
+  }
+  h5{
+      font-size: 0.8rem;
+      font-weight: 400;
+      font-family: 'Oswald';
+  }
+  p{
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: 'Poppins';
+  }
+  margin: 50px 1.5vw;
+  width: 480px;
+  .imdiv{
+      margin: 0 0 25px 0;
+      padding: 0;
+      overflow: hidden;
+      height: 360px;
+      width: 100%;
+      img{
+        transition: all 0.3s;
+        height: 360px;
+        width: 100%;
+    }
+  }
+  iframe{
+      height: 360px;
+      width: 100%;
+  }
+  
+
+
+  &:hover{
+    img{
+      transform: scale(1.05);
+    }
+    box-shadow: 1px 1px 50px rgb(177, 177, 177);
+          transform: translateY(-1%)
+  }
+}

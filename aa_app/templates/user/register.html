@@ -1,0 +1,40 @@
+{%extends 'html/main.html'%}
+{%block content%}
+
+<div class="dc">
+    <div class="frm">
+        <h2 class="my-4 beige text-center">User Registration</h2>
+        <form method="post" enctype="multipart/form-data" class="mt-4">
+            {% csrf_token %}
+            <div class="form-floating mb-3">
+                <input type="text" id="phone" placeholder="" name="phone" class="form-control" required>
+                <label for="phone" class="form-label">Phone</label>
+            </div>
+            
+            <div class="form-floating mb-3">
+                <input type="password" id="password" placeholder="" name="password" class="form-control" required>
+                <label for="password" class="form-label">Password</label>
+            </div>
+            
+            <div class="form-floating mb-3">
+                
+                <input type="text" id="name" name="name" placeholder="" class="form-control" required>
+                <label for="name" class="form-label">Name</label>
+            </div>
+            
+            
+            <div class="form-floating mb-3">
+                <input type="email" id="email" name="email" placeholder="" class="form-control" required>
+                <label for="email" class="form-label">Email</label>
+            </div>
+            
+            <div class="form-floating mb-3">
+                <input type="file" class="form-control" placeholder="" id="pic" name="pic" required>
+                <label for="pic">Picture</label>
+            </div>
+            
+            <button type="submit" class="btna">Register</button>
+        </form>
+    </div>
+</div>
+{%endblock%}

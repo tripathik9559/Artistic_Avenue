@@ -1,0 +1,55 @@
+{%extends 'artist/main.html'%}
+{%block content%}
+
+<div class="dc">
+    <div class="frm">
+        <h2 class="my-4 beige text-center">Artist Registration</h2>
+        <form method="post" enctype="multipart/form-data" class="mt-4">
+            {% csrf_token %}
+            <div class="form-floating mb-3">
+                <input type="text" id="phone" placeholder="" name="phone" class="form-control" required>
+                <label for="phone" class="form-label">Phone</label>
+            </div>
+            
+            <div class="form-floating mb-3">
+                <input type="password" id="password" placeholder="" name="password" class="form-control" required>
+                <label for="password" class="form-label">Password</label>
+            </div>
+            
+            <div class="form-floating mb-3">
+                
+                <input type="text" id="name" name="name" placeholder="" class="form-control" required>
+                <label for="name" class="form-label">Name</label>
+            </div>
+            
+            <div class="form-floating mb-3">
+                
+                <select id="category" name="category" class="form-select" aria-placeholder="" required>
+                    <option value="" disabled selected>Select category</option>
+                    <option value="Abstract">Abstract</option>
+                    <option value="Wildlife">Wildlife</option>
+                    <option value="Landscape">Landscape</option>
+                    <option value="Portrait">Portrait</option>
+                    <option value="Still Life">Still Life</option>
+                    <option value="Impressionism">Impressionism</option>
+                    <option value="Surrealism">Surrealism</option>
+                    <option value="Realism">Realism</option>
+                </select>
+                <label for="category" class="form-label">Category</label>
+            </div>
+            
+            <div class="form-floating mb-3">
+                <input type="email" id="email" name="email" placeholder="" class="form-control" required>
+                <label for="email" class="form-label">Email</label>
+            </div>
+            
+            <div class="form-floating mb-3">
+                <input type="file" class="form-control" placeholder="" id="pic" name="pic" required>
+                <label for="pic">Picture</label>
+            </div>
+            
+            <button type="submit" class="btna">Register</button>
+        </form>
+    </div>
+</div>
+{%endblock%}

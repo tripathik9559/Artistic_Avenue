@@ -1,0 +1,108 @@
+{%extends 'portal/main.html'%}
+{%block title%}Admin Home{%endblock title%}
+{%block content%}
+
+
+<h1 class="pacifico beige mb-5 text-center" style="margin-top: 7vh ;font-size: 4.5rem; font-weight: 900;">Users</h1>
+
+<div style="overflow: auto; margin: 0 7.4vw;"  class="scrl">
+
+    <div style="display: inline-flex;">
+
+{%for a in customer%}
+    <div class="cards" style="width: 350px; ">
+        <div class="imdiv">
+            <img src="{{a.pic.url}}" alt="">
+        </div>
+        <h3 class="text-center my-3">{{a.name}}</h3>
+        <h4 class="ms-3">Phone: {{a.phone}}</h4>
+        <h5 style="font-family: 'Poppins'; font-size: medium;" class="ms-3">Email: {{a.email}}</h5>
+        
+    </div>
+    {%endfor%}
+
+    </div>
+</div>
+
+
+
+
+<h1 class="pacifico beige mb-5 text-center" style="margin-top: 7vh ;font-size: 4.5rem; font-weight: 900;">Artists</h1>
+
+<div style="overflow: auto; margin: 0 7.4vw;"  class="scrl">
+
+    <div style="display: inline-flex;">
+
+{%for a in artist%}
+    <div class="cards" style="width: 350px; ">
+        <div class="imdiv">
+            <img src="{{a.pic.url}}" alt="">
+        </div>
+        <h3 class="text-center my-3">{{a.name}}</h3>
+        <h4 class="ms-3">Category: {{a.category}}</h4>
+        <h4 class="ms-3">Phone: {{a.phone}}</h4>
+        <h5 style="font-family: 'Poppins'; font-size: medium;" class="ms-3">Email: {{a.email}}</h5>
+        
+    </div>
+    {%endfor%}
+
+    </div>
+</div>
+
+
+<h1 class="pacifico beige mb-5 text-center" style="margin-top: 7vh ;font-size: 4.5rem; font-weight: 900;">Arts</h1>
+
+<div style="overflow: auto; margin: 0 7.4vw;"  class="scrl">
+
+    <div style="display: inline-flex;">
+        {%for a in art%}
+        <div class="cards" style="width: 350px;">
+            <div class="imdiv">
+                <img src="{{a.pic.url}}" alt="">
+            </div>
+            <h3 class="text-center mb-3">{{a.name}}</h3>
+            <h5 class="text-center mb-3">By: {{a.artist.name}}</h5>
+        </div>
+        
+            {%endfor%}
+    </div>
+</div>
+
+
+<h1 class="pacifico beige mb-5 text-center" style="margin-top: 7vh ;font-size: 4.5rem; font-weight: 900;">Orders</h1>
+<div style="overflow: auto; margin: 0 7.4vw;"  class="scrl">
+
+    <div style="display: inline-flex;">
+    {%for o in orders%}
+    <div class="cardss" >
+    <div class="imdiv">
+        <img src="{{o.art.pic.url}}" alt="">
+    </div>
+        <h3 class="mx-4">Order By: {{o.user.name}}</h3>
+        <h3 class="mx-4">Art Name: {{o.art.name}}</h3>
+        <h4 class="mx-4">Price: {{o.art.price}}</h4>
+        <h5 class="mx-4">Status: {{o.status}}</h5>
+        <p class="mx-4">Order Date: {{o.created}}</p>
+        <a class="mx-4" href="{{o.payment.url}}">Payment Screenshot</a>
+    </div>
+    {%endfor%}
+
+</div>
+</div>
+
+
+
+<h1 class="pacifico beige mb-5 text-center" style="margin-top: 7vh ;font-size: 4.5rem; font-weight: 900;">Queries</h1>
+<div class="dc">
+    {%for o in query%}
+    <div class="cardss p-3" style="width: 350px;" >
+        <h3 class="mx-4">Name: {{o.name}}</h3>
+        <h4 class="mx-4">Email: <a href="mailto:{{o.email}}">{{o.email}}</a></h4>
+        <p class="mx-4">Question: {{o.question}}</p>
+    </div>
+    {%endfor%}
+
+</div>
+
+
+{%endblock%}

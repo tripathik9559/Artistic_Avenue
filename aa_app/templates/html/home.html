@@ -1,0 +1,85 @@
+{%extends 'html/main.html'%}
+{%load static%}
+{%block content%}
+
+
+
+<section class="px-5">
+    <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{%static 'images/a1.avif'%}" style="height: 800px;" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="{%static 'images/a2.avif'%}" style="height: 800px;" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="{%static 'images/a3.avif'%}" style="height: 800px;" class="d-block w-100" alt="...">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</section>
+
+
+
+<h1 class="pacifico mb-5 beige text-center" style="margin-top: 7vh ;font-size: 4.5rem; font-weight: 900;">Artists</h1>
+
+<div style="overflow: auto; margin: 0 7.4vw;" class="scrl">
+
+    <div style="display: inline-flex;">
+
+        {%for a in artist%}
+        <div class="cards" style="width: 350px; ">
+            <div class="imdiv">
+                <img src="{{a.pic.url}}" alt="">
+            </div>
+            <h3 class="text-center my-3">{{a.name}}</h3>
+            <h4 class="ms-3">Category: {{a.category}}</h4>
+            <h4 class="ms-3">Phone: {{a.phone}}</h4>
+            <h5 style="font-family: 'Poppins'; font-size: medium;" class="ms-3">Email: {{a.email}}</h5>
+
+        </div>
+        {%endfor%}
+
+    </div>
+</div>
+
+
+<h1 class="pacifico mb-5 beige text-center" style="margin-top: 7vh ;font-size: 4.5rem; font-weight: 900;">Arts</h1>
+
+<div style="overflow: auto; margin: 0 7.4vw;" class="scrl">
+
+    <div style="display: inline-flex;">
+        {%for a in art%}
+        <div class="cards" style="width: 350px;">
+            <div class="imdiv">
+                <img src="{{a.pic.url}}" alt="">
+            </div>
+            <h3 class="text-center mb-3">{{a.name}}</h3>
+            <h5 class="text-center mb-3">By: {{a.artist.name}}</h5>
+        </div>
+
+        {%endfor%}
+    </div>
+</div>
+
+
+<h1 class="pacifico mb-5 beige text-center" style="margin-top: 7vh ;font-size: 4.5rem; font-weight: 900;">Find Us</h1>
+<div class="m-5">
+    <div style="width: 100%"><iframe width="100%" height="600" frameborder="0" scrolling="no" marginheight="0"
+            marginwidth="0"
+            src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=BBD%20university+(Artistic%20Avenue)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"><a
+                href="https://www.gps.ie/">gps trackers</a></iframe></div>
+</div>
+
+{%endblock%}
