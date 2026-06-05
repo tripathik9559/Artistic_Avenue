@@ -1,0 +1,1 @@
+web: gunicorn Artistic_Avenue.wsgi:application
