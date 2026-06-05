@@ -1,232 +1,204 @@
 # 🎨 Artistic Avenue
 
-> A full-stack Django artist marketplace where artists sell original artworks and users discover and purchase unique pieces.
+A **full-stack art marketplace and community platform** built with Django — connecting artists and art lovers through a beautiful, feature-rich web experience.
 
-![Python](https://img.shields.io/badge/Python-3.10+-blue?style=flat-square)
-![Django](https://img.shields.io/badge/Django-5.0-green?style=flat-square)
-![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-purple?style=flat-square)
+## 🌐 Live Demo
+**[https://artistic-avenue.onrender.com](https://artistic-avenue.onrender.com)**
+
+| Role | Login URL | Demo Credentials |
+|------|-----------|-----------------|
+| User | `/user_login/` | Phone: `9999900002` · Password: `demo@user` |
+| Artist | `/artist_login/` | Phone: `9999900001` · Password: `demo@artist` |
+| Admin | `/portal/` | ID: `admin001` · Password: `admin123` |
 
 ---
 
 ## ✨ Features
 
-### For Users
-- Browse the full artwork gallery with search & filters
-- Shop available artworks filtered by style and price
-- Purchase with QR-based payment + screenshot upload
-- Track order status (Pending → Confirmed → Delivered)
-- Chat directly with artists
+### 👤 For Users (Art Buyers)
+- Register & login with phone number
+- Browse the **Gallery** — all artworks from all artists
+- Visit the **Shop** — buy artworks listed for sale
+- Place orders with payment screenshot upload
+- **Chat directly** with artists
+- Track order history & status
+- Submit queries/contact form
+- Watch art **tutorial videos** & download **PDF study materials**
 
-### For Artists
-- Artist dashboard with stats (artworks, sold count, pending orders)
-- Upload artwork with category, price, description, and photo
-- Manage sales orders and update status
-- View chat messages from buyers
-- Host and manage art events
+### 🎨 For Artists
+- Register with art category (Painting, Sculpture, etc.)
+- Personal **Artist Dashboard** — view uploaded art & orders
+- Upload artworks with image, price, description & sale toggle
+- **Mark art as For Sale / Not For Sale**
+- Reply to user messages
+- Add & manage **Events** (exhibitions, workshops)
+- View all incoming orders
 
-### For Admin
-- Dashboard with platform-wide statistics
-- Manage all orders and update statuses
-- View all users, artists, artworks, and queries
-- Upload tutorial videos (YouTube) and PDF resources
-
-### Platform-wide
-- Search by artwork name, artist name, and style
-- Category and price-range filters on the shop
-- Responsive design (mobile-first)
-- Artist profile pages with bio, gallery, and artwork stats
-- Events / exhibitions listing with images
-- Contact form for queries
-
----
-
-## 🔑 Demo Accounts
-
-> Use these to explore the platform without registering.
-
-| Role   | Phone        | Password     | Notes                        |
-|--------|--------------|--------------|------------------------------|
-| User   | 9999900002   | demo@user    | Shown on User Login page     |
-| Artist | 9999900001   | demo@artist  | Shown on Artist Login page   |
-| Admin  | ID: admin123 | Admin@2024   | Not publicly displayed       |
+### 🛡️ For Admin (Portal)
+- Secure admin portal with ID + password
+- View all **Users, Artists, Artworks, Orders, Queries**
+- Manage order status (Pending → Confirmed → Delivered)
+- Upload **tutorial videos** (YouTube links) by category
+- Upload **PDF study materials** by category
+- Add platform-wide Events
 
 ---
 
-## 🖼️ Project Structure
+## 🏗️ Project Structure
 
 ```
 Artistic_Avenue/
-├── Artistic_Avenue/        # Django project settings
+├── manage.py
+├── requirements.txt
+├── Procfile
+├── build.sh
+│
+├── Artistic_Avenue/          # Django project config
 │   ├── settings.py
 │   ├── urls.py
 │   └── wsgi.py
-├── aa_app/                 # Main app
-│   ├── models.py           # Artist, User, Portal, Art, Order, Event, Chat…
-│   ├── views.py            # All views with session auth
-│   ├── urls.py             # URL routing
-│   ├── templates/
-│   │   ├── html/           # Public pages (home, gallery, shop, artists…)
-│   │   ├── artist/         # Artist dashboard templates
-│   │   ├── user/           # User dashboard templates
-│   │   ├── portal/         # Admin templates
-│   │   └── common/         # Shared header, footer, CSS
-│   └── static/
-│       ├── css/style.css
-│       └── images/
-├── media/                  # Uploaded files (gitignored)
-├── seed_demo.py            # Demo data seeder
-├── build.sh                # Render deployment script
-├── requirements.txt
-└── .env.example
+│
+└── aa_app/                   # Main application
+    ├── models.py             # Artist, User, Portal, Art, Order, Chat, Event, Video, Pdf, Query
+    ├── views.py              # All views — user, artist, admin, shared
+    ├── urls.py               # All URL routes
+    ├── admin.py
+    ├── migrations/           # Database migrations
+    ├── static/
+    │   ├── css/style.css
+    │   └── images/           # Logo, favicon, backgrounds
+    └── templates/
+        ├── html/             # Public pages (home, gallery, shop, events)
+        ├── user/             # User portal templates
+        ├── artist/           # Artist portal templates
+        ├── portal/           # Admin portal templates
+        └── common/           # Shared partials
 ```
 
 ---
 
-## 🚀 Local Installation
+## 👥 User Roles & URLs
 
-### 1. Clone the repository
+| Role | Key URLs |
+|------|----------|
+| Public | `/` `/gallery/` `/shop/` `/artists/` `/events/` `/tutorials/` |
+| User | `/user_login/` `/user_register/` `/user_orders/` `/user_chats/` |
+| Artist | `/artist_login/` `/artist_register/` `/artist_home/` `/upload/` `/add_event/` |
+| Admin | `/portal/` `/portal_home/` `/portal_orders/` `/uploadmats/` |
+
+---
+
+## 🛒 Order Flow
+
+```
+User browses Shop → Clicks Buy → Billing page →
+Uploads payment screenshot → Order created →
+Artist sees order → Admin updates status → User tracks order
+```
+
+---
+
+## 🗃️ Database Models
+
+| Model | Description |
+|-------|-------------|
+| `Artist` | Artist profile — name, phone, email, category, photo |
+| `User` | Buyer profile — name, phone, email, photo |
+| `Portal` | Admin account |
+| `Art` | Artwork — title, description, price, image, for-sale flag, sold flag |
+| `Order` | Purchase record — user, art, payment proof, status |
+| `Chat` | Messages between user and artist |
+| `Event` | Exhibitions and workshops with date, venue, image |
+| `Video` | Tutorial videos (YouTube links) with category |
+| `Pdf` | Study material PDFs with category |
+| `Query` | Contact form submissions |
+
+---
+
+## 🚀 Quick Start (Local)
+
+### Prerequisites
+- Python 3.11+
+- pip
+
+### Steps
+
 ```bash
-git clone https://github.com/YOUR_USERNAME/Artistic_Avenue.git
+# 1. Clone the repository
+git clone https://github.com/tripathik9559/Artistic_Avenue.git
 cd Artistic_Avenue
-```
 
-### 2. Create virtual environment
-```bash
+# 2. Create virtual environment
 python -m venv venv
-source venv/bin/activate        # Windows: venv\Scripts\activate
-```
+venv\Scripts\activate          # Windows
+# source venv/bin/activate     # Mac/Linux
 
-### 3. Install dependencies
-```bash
+# 3. Install dependencies
 pip install -r requirements.txt
-```
 
-### 4. Configure environment
-```bash
-cp .env.example .env
-# Edit .env — set SECRET_KEY, DEBUG=True for local
-```
-
-### 5. Run migrations
-```bash
+# 4. Run migrations
 python manage.py migrate
-```
 
-### 6. Seed demo data
-```bash
-python seed_demo.py
-```
-
-### 7. Run the development server
-```bash
+# 5. Start the server
 python manage.py runserver
 ```
 
-Visit: http://127.0.0.1:8000
+Open **http://127.0.0.1:8000** in your browser.
 
 ---
 
-## ☁️ Deployment on Render
+## ☁️ Deployment (Render + Neon)
 
-### Step 1 — Push to GitHub
-```bash
-git add .
-git commit -m "Initial deploy"
-git push origin main
+### Tech Used for Production
+| Layer | Technology |
+|-------|-----------|
+| Hosting | [Render](https://render.com) |
+| Database | [Neon](https://neon.tech) — PostgreSQL |
+| Static Files | WhiteNoise |
+| Server | Gunicorn |
+
+### Environment Variables (Render)
+
+| Variable | Description |
+|----------|-------------|
+| `DATABASE_URL` | Neon PostgreSQL connection string |
+| `SECRET_KEY` | Django secret key |
+| `DEBUG` | `False` in production |
+| `PYTHON_VERSION` | `3.11.0` |
+
+### Build & Start Commands
+
 ```
-
-### Step 2 — Create a Web Service on Render
-1. Go to [render.com](https://render.com) → **New → Web Service**
-2. Connect your GitHub repository
-3. Fill in these settings:
-
-| Field            | Value                        |
-|------------------|------------------------------|
-| Environment      | Python 3                     |
-| Build Command    | `./build.sh`                 |
-| Start Command    | `gunicorn Artistic_Avenue.wsgi:application` |
-| Instance Type    | Free                         |
-
-### Step 3 — Set Environment Variables
-In Render dashboard → **Environment**:
-
-| Key           | Value                        |
-|---------------|------------------------------|
-| SECRET_KEY    | (generate a random 50-char string) |
-| DEBUG         | False                        |
-| ALLOWED_HOSTS | your-app.onrender.com        |
-| PYTHON_VERSION| 3.11.0                       |
-
-### Step 4 — Deploy
-Click **Deploy** — Render will run `build.sh` which:
-1. Installs packages
-2. Collects static files
-3. Runs migrations
-4. Seeds demo accounts
-
-> **Note on media files:** Render's free tier has an ephemeral filesystem — uploaded images will reset on redeploy. For production, integrate [Cloudinary](https://cloudinary.com/) or [AWS S3](https://aws.amazon.com/s3/) for persistent media storage.
-
----
-
-## 🗄️ Migration Commands
-
-```bash
-# Apply all migrations
-python manage.py migrate
-
-# If you change models (add new field, etc.)
-python manage.py makemigrations
-python manage.py migrate
-
-# Re-seed demo data
-python seed_demo.py
+Build:  chmod +x build.sh && ./build.sh
+Start:  gunicorn Artistic_Avenue.wsgi:application
 ```
 
 ---
 
-## ✅ Testing Checklist
+## 🔧 Tech Stack
 
-- [ ] Homepage loads with carousel, stats, artist strip, artwork strip, and map
-- [ ] User login works with demo credentials (Phone: 9999900002, PW: demo@user)
-- [ ] Artist login works with demo credentials (Phone: 9999900001, PW: demo@artist)
-- [ ] Demo fill buttons on login pages autofill and submit
-- [ ] Gallery page search filters by name/artist/style
-- [ ] Shop page search + category + price range filters work
-- [ ] Artists page search + category filter works
-- [ ] Artist profile page (click "View Art") shows bio, stats, gallery
-- [ ] Shop "Buy Now" requires login, shows checkout with QR
-- [ ] Order placed → status "Pending" in user orders
-- [ ] Admin login (ID: admin123, PW: Admin@2024) works at /portal/
-- [ ] Admin dashboard shows stats counts
-- [ ] Admin can update order status (Pending/Confirmed/Delivered)
-- [ ] Artist dashboard shows artwork count, sold count, pending orders
-- [ ] Chat between user and artist works
-- [ ] Contact form submits and appears in admin queries
-- [ ] Events page loads correctly
-- [ ] Static files load (logo, background, images)
-- [ ] Mobile responsive navbar (hamburger menu works)
+| Layer | Technology |
+|-------|-----------|
+| Backend | Django 5.2 |
+| Frontend | HTML, CSS, JavaScript |
+| Database | SQLite (local) / PostgreSQL via Neon (production) |
+| Static Files | WhiteNoise |
+| Server | Gunicorn |
+| Hosting | Render |
 
 ---
 
-## 🛠️ Tech Stack
+## 📸 Pages Overview
 
-| Layer      | Technology                     |
-|------------|-------------------------------|
-| Backend    | Django 5.0 (Python)           |
-| Frontend   | Bootstrap 5.3 + custom CSS    |
-| Fonts      | Google Fonts (Pacifico, Poppins, Oswald) |
-| Icons      | Font Awesome 5                |
-| Database   | SQLite (dev) / PostgreSQL (prod) |
-| Static     | WhiteNoise                    |
-| Deployment | Render                        |
+- **Home** — Featured artists and artworks
+- **Gallery** — All artworks in one place
+- **Shop** — Artworks available for purchase
+- **Artists** — Browse all registered artists
+- **Events** — Upcoming art exhibitions & workshops
+- **Tutorials** — Video tutorials and PDF materials for artists
+- **Chat** — Direct messaging between users and artists
 
 ---
 
-## 👨‍💻 Developed By
-
-**Kartikey Kumar Tripathi** — Backend Developer  
-BBDNIIT
-
----
-
-*Artistic Avenue — Where Art Meets Commerce*
+## 📝 License
+Built for educational purposes. © Artistic Avenue.
