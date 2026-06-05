@@ -224,8 +224,8 @@ python seed_demo.py
 
 ## 👨‍💻 Developed By
 
-**Kartikey Kumar Tripathi** — Full Stack Django Developer  
-BBD University
+**Kartikey Kumar Tripathi** — Backend Developer  
+BBDNIIT
 
 ---
 
