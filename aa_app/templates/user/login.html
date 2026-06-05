@@ -1,23 +1,44 @@
 {%extends 'html/main.html'%}
 {%block content%}
 
+<div class="dc" style="align-items:flex-start;">
+  <!-- Login Form -->
+  <div class="frm">
+    <h1 class="text-center beige mb-4" style="font-size:2.5rem;font-weight:800;">User Login</h1>
+    <form method="post">
+      {% csrf_token %}
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="phone" name="phone" placeholder=" ">
+        <label for="phone">Phone Number</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="password" class="form-control" id="password" name="password" placeholder=" ">
+        <label for="password">Password</label>
+      </div>
+      <a href="/user_register/" style="color:#ff4d6d;">New here? Register →</a>
+      <button type="submit" class="btna mt-3">Login</button>
+    </form>
+  </div>
 
-<div class="dc">
-    <div class="frm">
-        <h1 class="text-center beige mb-4" style="font-size: 3rem; font-weight: 800;">User Login</h1>
-        <form method="post">
-            {% csrf_token %}
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="phone" name="phone" placeholder=" ">
-                <label for="phone">Phone</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="password" class="form-control" id="password" name="password" placeholder=" ">
-                <label for="password">Password</label>
-            </div>
-            <a href="/user_register/">Register Here...</a>
-            <button type="submit" class="btna">Login</button>
-        </form>
+  <!-- Demo Credentials Card -->
+  <div class="frm" style="background:rgba(0,0,0,.55) !important;border:1px solid rgba(255,255,255,.15);">
+    <h2 class="text-center beige mb-3" style="font-size:1.5rem;font-weight:700;">🎨 Try a Demo Account</h2>
+    <p class="beige" style="font-size:.9rem;opacity:.8;text-align:center;">Recruiters &amp; guests — use these to explore:</p>
+
+    <div style="background:rgba(255,255,255,.08);border-radius:1rem;padding:14px 18px;margin-top:1rem;">
+      <p class="beige mb-1" style="font-size:.85rem;font-weight:700;">👤 Demo User</p>
+      <p class="beige mb-0" style="font-size:.85rem;">Phone: <strong>9999900002</strong></p>
+      <p class="beige mb-1" style="font-size:.85rem;">Password: <strong>demo@user</strong></p>
+      <button class="btna mt-2" style="font-size:.8rem;padding:6px 18px;"
+        onclick="document.getElementById('phone').value='9999900002';document.getElementById('password').value='demo@user';">
+        Fill &amp; Login
+      </button>
     </div>
+
+    <p class="beige mt-3 mb-2" style="font-size:.8rem;text-align:center;opacity:.7;">— or try as an artist —</p>
+    <div class="text-center">
+      <a href="/artist_login/" class="btna d-inline-block" style="font-size:.85rem;padding:8px 24px;">Artist Login</a>
+    </div>
+  </div>
 </div>
 {%endblock%}

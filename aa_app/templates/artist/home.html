@@ -1,35 +1,85 @@
 {%extends 'artist/main.html'%}
 {%block content%}
-<h1 class="pacifico mb-5 beige text-center" style="margin-top: 7vh ;font-size: 4.5rem; font-weight: 900;">My Gallery</h1>
 
-<div class="dc">
-    {%for a in Aobj%}
-    <div class="cards" style="width: 350px;">
-        <div class="imdiv">
-            <img src="{{a.pic.url}}" alt="">
-        </div>
-        <h3 class="text-center mb-3">{{a.name}}</h3>
+<!-- ── Dashboard Stats ───────────────────────────────────────────────────── -->
+<div style="padding:3rem 5vw 2rem;">
+  <h1 class="pacifico beige mb-4" style="font-size:clamp(2rem,4vw,3rem);">Welcome, {{user.name}} 👋</h1>
+  <div class="row g-3 mb-4">
+    <div class="col-6 col-md-4">
+      <div style="background:rgba(0,0,0,.45);backdrop-filter:blur(8px);border-radius:1.2rem;padding:1.5rem;text-align:center;">
+        <h2 class="pacifico beige" style="font-size:2.5rem;">{{Aobj|length}}</h2>
+        <p class="beige" style="opacity:.8;margin:0;">Total Artworks</p>
+      </div>
     </div>
-    
-        {%endfor%}
+    <div class="col-6 col-md-4">
+      <div style="background:rgba(0,0,0,.45);backdrop-filter:blur(8px);border-radius:1.2rem;padding:1.5rem;text-align:center;">
+        <h2 class="pacifico beige" style="font-size:2.5rem;color:#2ecc71;">{{sold}}</h2>
+        <p class="beige" style="opacity:.8;margin:0;">Sold</p>
+      </div>
+    </div>
+    <div class="col-12 col-md-4">
+      <div style="background:rgba(0,0,0,.45);backdrop-filter:blur(8px);border-radius:1.2rem;padding:1.5rem;text-align:center;">
+        <h2 class="pacifico beige" style="font-size:2.5rem;color:#f39c12;">{{pending_count}}</h2>
+        <p class="beige" style="opacity:.8;margin:0;">Pending Orders</p>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex flex-wrap gap-2">
+    <a href="/upload/" class="btna">+ Upload Artwork</a>
+    <a href="/artist_orders/" class="btna" style="background:#fff;color:#222;">My Orders</a>
+    <a href="/add_event/" class="btna" style="background:#fff;color:#222;">Add Event</a>
+  </div>
 </div>
 
-
-<h1 class="pacifico mb-5 beige text-center" style="margin-top: 7vh ;font-size: 4.5rem; font-weight: 900;">Orders</h1>
+<!-- ── My Gallery ────────────────────────────────────────────────────────── -->
+<h2 class="pacifico beige mb-4 text-center" style="font-size:clamp(2rem,4vw,3rem);">My Gallery</h2>
 <div class="dc">
-    {%for o in Oobj%}
-    <div class="cardss" >
+  {%for a in Aobj%}
+  <div class="cards" style="width:300px;">
     <div class="imdiv">
-        <img src="{{o.art.pic.url}}" alt="">
+      <img src="{{a.pic.url}}" alt="{{a.name}}" style="object-fit:cover;">
     </div>
-        <h3 class="mx-4">Order By: {{o.user.name}}</h3>
-        <h3 class="mx-4">Art Name: {{o.art.name}}</h3>
-        <h4 class="mx-4">Price: {{o.art.price}}</h4>
-        <h5 class="mx-4">Status: {{o.status}}</h5>
-        <p class="mx-4">Order Date: {{o.created}}</p>
-        <a class="mx-4" href="{{o.payment.url}}">Payment Screenshot</a>
-    </div>
-    {%endfor%}
-
+    <h3 class="text-center mb-2">{{a.name}}</h3>
+    <h4 class="ms-3">{{a.art_type}}</h4>
+    {%if a.sold%}
+    <span style="background:#e74c3c;color:#fff;padding:3px 12px;border-radius:2rem;font-size:.8rem;margin:0 0 12px 12px;display:inline-block;">Sold</span>
+    {%elif a.forsale%}
+    <span style="background:#2ecc71;color:#fff;padding:3px 12px;border-radius:2rem;font-size:.8rem;margin:0 0 12px 12px;display:inline-block;">For Sale · ₹{{a.price}}</span>
+    {%else%}
+    <span style="background:#888;color:#fff;padding:3px 12px;border-radius:2rem;font-size:.8rem;margin:0 0 12px 12px;display:inline-block;">Not for sale</span>
+    {%endif%}
+  </div>
+  {%empty%}
+  <div class="text-center beige py-5" style="width:100%;">
+    <p>No artworks yet. <a href="/upload/" style="color:#ff8fa3;">Upload your first piece!</a></p>
+  </div>
+  {%endfor%}
 </div>
+
+<!-- ── Recent Orders ─────────────────────────────────────────────────────── -->
+{%if Oobj%}
+<h2 class="pacifico beige mb-4 text-center" style="margin-top:5vh;font-size:clamp(2rem,4vw,3rem);">Recent Orders</h2>
+<div class="dc">
+  {%for o in Oobj%}
+  <div class="cardss" style="width:300px;">
+    <div class="imdiv"><img src="{{o.art.pic.url}}" alt="" style="object-fit:cover;"></div>
+    <h3 class="mx-4 mt-3">{{o.art.name}}</h3>
+    <h4 class="mx-4">By: {{o.user.name}}</h4>
+    <h4 class="mx-4">₹{{o.art.price}}</h4>
+    <p class="mx-4">
+      {%if o.status == "Delivered"%}
+      <span style="color:#2ecc71;font-weight:700;">✓ {{o.status}}</span>
+      {%elif o.status == "Confirmed"%}
+      <span style="color:#3498db;font-weight:700;">✓ {{o.status}}</span>
+      {%else%}
+      <span style="color:#f39c12;font-weight:700;">⏳ {{o.status}}</span>
+      {%endif%}
+    </p>
+    <p class="mx-4 mb-1" style="font-size:.8rem;color:#777;">{{o.created}}</p>
+    {%if o.payment%}<a class="mx-4 mb-3 d-block" href="{{o.payment.url}}" style="color:#ff4d6d;">Payment Screenshot</a>{%endif%}
+  </div>
+  {%endfor%}
+</div>
+{%endif%}
+
 {%endblock%}

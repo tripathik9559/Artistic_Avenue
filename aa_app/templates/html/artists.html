@@ -1,27 +1,55 @@
 {%extends 'html/main.html'%}
 {%load static%}
 {%block content%}
-<h1 class="pacifico beige mb-5 text-center" style="margin-top: 7vh ;font-size: 4.5rem; font-weight: 900;">Artists</h1>
 
-<div class="dc">
-    {%for a in obj%}
-    <div class="cards" style="width: 350px; ">
-        <div class="imdiv">
-            <img src="{{a.pic.url}}" alt="">
-        </div>
-        <h3 class="text-center my-3">{{a.name}}</h3>
-        <h4 class="ms-3">Category: {{a.category}}</h4>
-        <h4 class="ms-3">Phone: {{a.phone}}</h4>
-        <h5 style="font-family: 'Poppins'; font-size: medium;" class="ms-3">Email: {{a.email}}</h5>
-        
-        <div class="d-flex">
-            <button class="btna my-3 w-50 ms-3 me-1" onclick="window.location.href='{%url 'show_art' a.phone%}';">Show Arts</button>
-            {%if not user.artist and not user.admin%}
-            <button class="btna my-3 w-50 me-3 ms-1" onclick="window.location.href='{%url 'chat' a.id%}';">Chat</button>
-            {%endif%}
-        </div>
-        
+<h1 class="pacifico beige mb-4 text-center" style="margin-top:7vh;font-size:clamp(2.5rem,5vw,4.5rem);font-weight:900;">Artists</h1>
+
+<!-- ── Search & Filter Bar ───────────────────────────────────────────────── -->
+<div style="margin:0 5vw 2rem;background:rgba(0,0,0,.4);backdrop-filter:blur(8px);padding:1.2rem 1.5rem;border-radius:1.5rem;">
+  <form method="get" class="d-flex flex-wrap gap-2 align-items-end">
+    <div class="form-floating flex-grow-1" style="min-width:200px;">
+      <input type="text" class="form-control" id="q" name="q" placeholder=" " value="{{query}}">
+      <label for="q">Search artist by name or style…</label>
     </div>
-    {%endfor%}
+    <div class="form-floating" style="min-width:160px;">
+      <select class="form-select" id="category" name="category">
+        <option value="">All Categories</option>
+        {%for c in categories%}
+        <option value="{{c}}" {%if selected_category == c%}selected{%endif%}>{{c}}</option>
+        {%endfor%}
+      </select>
+      <label for="category">Category</label>
+    </div>
+    <button type="submit" class="btna" style="height:58px;padding:0 28px;">Search</button>
+    {%if query or selected_category%}
+    <a href="/artists/" class="btna" style="height:58px;padding:0 20px;background:#fff;color:#222;line-height:58px;">Clear</a>
+    {%endif%}
+  </form>
 </div>
+
+<!-- ── Results ───────────────────────────────────────────────────────────── -->
+<div class="dc">
+  {%for a in obj%}
+  <div class="cards" style="width:320px;">
+    <div class="imdiv">
+      <img src="{{a.pic.url}}" alt="{{a.name}}" style="object-fit:cover;">
+    </div>
+    <h3 class="text-center my-3">{{a.name}}</h3>
+    <h4 class="ms-3">{{a.category}}</h4>
+    {%if a.bio%}<p class="ms-3 me-3 mb-2" style="font-size:.82rem;color:#555;line-height:1.4;">{{a.bio|truncatechars:90}}</p>{%endif%}
+    <div class="d-flex gap-2 mx-3 mb-3 mt-2">
+      <a href="{%url 'show_art' a.phone%}" class="btna" style="flex:1;text-align:center;font-size:.85rem;padding:8px 8px;">View Art</a>
+      {%if not user.artist and not user.admin%}
+      <a href="{%url 'chat' a.id%}" class="btna" style="flex:1;text-align:center;font-size:.85rem;padding:8px 8px;background:#fff;color:#222;">Chat</a>
+      {%endif%}
+    </div>
+  </div>
+  {%empty%}
+  <div class="text-center beige py-5" style="width:100%;">
+    <h3 style="font-size:1.5rem;">No artists found{%if query%} for "{{query}}"{%endif%}.</h3>
+    <a href="/artists/" class="btna d-inline-block mt-3">Clear Search</a>
+  </div>
+  {%endfor%}
+</div>
+
 {%endblock%}

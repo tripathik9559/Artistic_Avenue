@@ -2,19 +2,51 @@
 {%load static%}
 {%block content%}
 
-<h1 class="pacifico mb-5 beige text-center" style="margin-top: 7vh ;font-size: 4.5rem; font-weight: 900;">Gallery</h1>
-<div class="dc">
-    {%for a in obj%}
-    <div class="cards" onclick="window.location.href='{{a.pic.url}}';" style="width: 350px;">
-        <div class="imdiv">
-            <img src="{{a.pic.url}}" alt="">
-        </div>
-        <h3 class="text-center mb-3">{{a.name}}</h3>
-        <h5 class="text-center mb-3">{{a.art_type}} By: {{a.artist.name}}</h5>
+<h1 class="pacifico beige mb-4 text-center" style="margin-top:7vh;font-size:clamp(2.5rem,5vw,4.5rem);font-weight:900;">Gallery</h1>
+
+<!-- Search & filter bar -->
+<div style="margin:0 5vw 2rem;background:rgba(0,0,0,.4);backdrop-filter:blur(8px);padding:1.2rem 1.5rem;border-radius:1.5rem;">
+  <form method="get" class="d-flex flex-wrap gap-2 align-items-end">
+    <div class="form-floating flex-grow-1" style="min-width:200px;">
+      <input type="text" class="form-control" id="q" name="q" placeholder=" " value="{{query}}">
+      <label for="q">Search artwork, artist or style…</label>
     </div>
-    
+    <div class="form-floating" style="min-width:160px;">
+      <select class="form-select" id="category" name="category">
+        <option value="">All Styles</option>
+        {%for c in categories%}
+        <option value="{{c}}" {%if selected_category == c%}selected{%endif%}>{{c}}</option>
         {%endfor%}
+      </select>
+      <label for="category">Style</label>
+    </div>
+    <button type="submit" class="btna" style="height:58px;padding:0 28px;">Search</button>
+    {%if query or selected_category%}
+    <a href="/gallery/" class="btna" style="height:58px;padding:0 20px;background:#fff;color:#222;line-height:58px;">Clear</a>
+    {%endif%}
+  </form>
 </div>
 
+<div class="dc">
+  {%for a in obj%}
+  <div class="cards" style="width:320px;" onclick="window.location.href='{{a.pic.url}}';" style="cursor:pointer;">
+    <div class="imdiv">
+      <img src="{{a.pic.url}}" alt="{{a.name}}" style="object-fit:cover;">
+    </div>
+    <h3 class="text-center mb-2">{{a.name}}</h3>
+    <h5 class="text-center mb-3">{{a.art_type}} · {{a.artist.name}}</h5>
+    {%if a.forsale and not a.sold%}
+    <p class="text-center mb-3" style="color:#2ecc71;font-weight:600;">For Sale · ₹{{a.price}}</p>
+    {%elif a.sold%}
+    <p class="text-center mb-3" style="color:#e74c3c;font-weight:600;">Sold</p>
+    {%endif%}
+  </div>
+  {%empty%}
+  <div class="text-center beige py-5" style="width:100%;">
+    <h3>No artworks found{%if query%} for "{{query}}"{%endif%}.</h3>
+    <a href="/gallery/" class="btna d-inline-block mt-3">Clear Search</a>
+  </div>
+  {%endfor%}
+</div>
 
 {%endblock%}

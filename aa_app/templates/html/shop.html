@@ -1,23 +1,67 @@
 {%extends 'html/main.html'%}
 {%load static%}
 {%block content%}
-<h1 class="pacifico beige mb-5 text-center" style="margin-top: 7vh ;font-size: 4.5rem; font-weight: 900;">Shop</h1>
 
-<div class="dc">
-    {%for a in obj%}
-    <div class="cards" style="width: 350px; background-color: rgb(255, 218, 218);">
-        <div class="imdiv">
-            <img src="{{a.pic.url}}" alt="">
-        </div>
-        <h3 class="text-center my-3">{{a.name}}</h3>
-        <h4 class="ms-3">Artist: {{a.artist.name}}</h4>
-        <h4 class="ms-3">Category: {{a.art_type}}</h4>
-        <h4 class="ms-3">Price: {{a.price}} RS</h4>
-        <p class="mx-3">Description: {{a.desc}}</p>
-        {%if not user.artist and not user.admin%}
-            <button class="btna my-3 w-50 d-block mx-auto" onclick="window.location.href='{%url 'billing' a.id%}';">Buy Now</button>
-        {%endif%}
+<h1 class="pacifico beige mb-4 text-center" style="margin-top:7vh;font-size:clamp(2.5rem,5vw,4.5rem);font-weight:900;">Shop</h1>
+
+<!-- ── Search & Filter Bar ───────────────────────────────────────────────── -->
+<div style="margin:0 5vw 2rem;background:rgba(0,0,0,.4);backdrop-filter:blur(8px);padding:1.2rem 1.5rem;border-radius:1.5rem;">
+  <form method="get" class="d-flex flex-wrap gap-2 align-items-end">
+    <div class="form-floating flex-grow-1" style="min-width:200px;">
+      <input type="text" class="form-control" id="q" name="q" placeholder=" " value="{{query}}">
+      <label for="q">Search artwork, artist or style…</label>
     </div>
-    {%endfor%}
+    <div class="form-floating" style="min-width:160px;">
+      <select class="form-select" id="category" name="category">
+        <option value="">All Styles</option>
+        {%for c in categories%}
+        <option value="{{c}}" {%if selected_category == c%}selected{%endif%}>{{c}}</option>
+        {%endfor%}
+      </select>
+      <label for="category">Style</label>
+    </div>
+    <div class="form-floating" style="min-width:110px;">
+      <input type="number" class="form-control" id="min_price" name="min_price" placeholder=" " value="{{min_price}}">
+      <label for="min_price">Min ₹</label>
+    </div>
+    <div class="form-floating" style="min-width:110px;">
+      <input type="number" class="form-control" id="max_price" name="max_price" placeholder=" " value="{{max_price}}">
+      <label for="max_price">Max ₹</label>
+    </div>
+    <button type="submit" class="btna" style="height:58px;padding:0 28px;">Filter</button>
+    {%if query or selected_category or min_price or max_price%}
+    <a href="/shop/" class="btna" style="height:58px;padding:0 20px;background:#fff;color:#222;line-height:58px;">Clear</a>
+    {%endif%}
+  </form>
 </div>
+
+<!-- ── Results ───────────────────────────────────────────────────────────── -->
+<div class="dc">
+  {%for a in obj%}
+  <div class="cards" style="width:320px;">
+    <div class="imdiv">
+      <img src="{{a.pic.url}}" alt="{{a.name}}" style="object-fit:cover;">
+    </div>
+    <h3 class="text-center my-3">{{a.name}}</h3>
+    <h4 class="ms-3">Artist: {{a.artist.name}}</h4>
+    <h4 class="ms-3">Style: {{a.art_type}}</h4>
+    <h4 class="ms-3" style="color:#2ecc71;">₹{{a.price}}</h4>
+    {%if a.desc%}<p class="mx-3" style="font-size:.85rem;color:#555;line-height:1.5;">{{a.desc|truncatechars:80}}</p>{%endif%}
+    {%if not user.artist and not user.admin%}
+    <a href="{%url 'billing' a.id%}" class="btna d-block w-50 mx-auto my-3 text-center" style="font-size:.9rem;">Buy Now</a>
+    {%endif%}
+  </div>
+  {%empty%}
+  <div class="text-center beige py-5" style="width:100%;">
+    <h3 style="font-size:1.4rem;">
+      {%if query or selected_category or min_price or max_price%}
+        No artworks match your search. <a href="/shop/" class="beige" style="text-decoration:underline;">Clear filters</a>
+      {%else%}
+        No artworks available for sale right now.
+      {%endif%}
+    </h3>
+  </div>
+  {%endfor%}
+</div>
+
 {%endblock%}

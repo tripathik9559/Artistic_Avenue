@@ -1,24 +1,35 @@
 {%extends 'artist/main.html'%}
-{%load static%}
 {%block content%}
 
-<h1 class="pacifico mb-5 beige text-center" style="margin-top: 7vh ;font-size: 4.5rem; font-weight: 900;">Orders</h1>
+<h1 class="pacifico beige mb-4 text-center" style="margin-top:7vh;font-size:clamp(2.5rem,5vw,4rem);font-weight:900;">My Orders</h1>
 
+{%if obj%}
 <div class="dc">
-    {%for o in obj%}
-    <div class="cardss" >
-    <div class="imdiv">
-        <img src="{{o.art.pic.url}}" alt="">
+  {%for o in obj%}
+  <div class="cardss" style="width:320px;">
+    <div class="imdiv"><img src="{{o.art.pic.url}}" alt="" style="object-fit:cover;"></div>
+    <h3 class="mx-4 mt-3">{{o.art.name}}</h3>
+    <h4 class="mx-4">Buyer: {{o.user.name}}</h4>
+    <h4 class="mx-4">₹{{o.art.price}}</h4>
+    <p class="mx-4" style="font-size:.8rem;color:#777;">{{o.created}}</p>
+    <div class="mx-4 mb-2">
+      {%if o.status == "Delivered"%}
+      <span style="background:#2ecc71;color:#fff;padding:5px 16px;border-radius:2rem;font-size:.85rem;font-weight:700;">✓ Delivered</span>
+      {%elif o.status == "Confirmed"%}
+      <span style="background:#3498db;color:#fff;padding:5px 16px;border-radius:2rem;font-size:.85rem;font-weight:700;">✓ Confirmed</span>
+      {%else%}
+      <span style="background:#f39c12;color:#fff;padding:5px 16px;border-radius:2rem;font-size:.85rem;font-weight:700;">⏳ Pending</span>
+      {%endif%}
     </div>
-        <h3 class="mx-4">Order By: {{o.user.name}}</h3>
-        <h3 class="mx-4">Art Name: {{o.art.name}}</h3>
-        <h3 class="mx-4">Artist Name: {{o.art.artist.name}}</h3>
-        <h4 class="mx-4">Price: {{o.art.price}}</h4>
-        <h5 class="mx-4">Status: {{o.status}}</h5>
-        <p class="mx-4">Order Date: {{o.created}}</p>
-        <a class="mx-4" href="{{o.payment.url}}">Payment Screenshot</a>
-    </div>
-    {%endfor%}
-
+    {%if o.payment%}<a class="mx-4 mb-3 d-block" href="{{o.payment.url}}" style="color:#ff4d6d;font-size:.85rem;">Payment Screenshot</a>{%endif%}
+  </div>
+  {%endfor%}
 </div>
+{%else%}
+<div class="text-center beige py-5">
+  <h3 style="font-size:1.5rem;">No orders received yet.</h3>
+  <p style="opacity:.7;">When buyers purchase your art, orders will appear here.</p>
+</div>
+{%endif%}
+
 {%endblock%}

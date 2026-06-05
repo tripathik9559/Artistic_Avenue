@@ -1,28 +1,42 @@
 {%extends 'html/main.html'%}
 {%load static%}
 {%block content%}
-<div class="dc">
-    <div class="cards" style="width: 350px; background-color: rgb(255, 218, 218);">
-        <div class="imdiv">
-            <img src="{{art.pic.url}}" alt="">
-        </div>
-        <h3 class="text-center my-3">{{art.name}}</h3>
-        <h4 class="ms-3">Artist: {{art.artist.name}}</h4>
-        <h4 class="ms-3">Category: {{art.art_type}}</h4>
-        <h4 class="ms-3">Price: {{art.price}} RS</h4>
-        <p class="mx-3">Description: {{art.desc}}</p>
-        
-</div>
-    <div class="frm">
-        <img class="d-block mx-auto mb-4" src="{% static 'images/QR.jpg'%}" style="height: 350px; height: 350px;" alt="">
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="form-floating mb-3">
-                <input type="file" class="form-control" placeholder="" id="pic" name="pic" required>
-                <label for="pic">Screenshot</label>
-            </div>
-            <button type="submit" class="btna">Buy Now</button>
-        </form>
+
+<h1 class="pacifico beige text-center mb-4" style="margin-top:7vh;font-size:clamp(2rem,4vw,3.5rem);">Checkout</h1>
+
+<div class="dc" style="align-items:flex-start;">
+  <!-- Artwork card -->
+  <div class="cards" style="width:320px;">
+    <div class="imdiv">
+      <img src="{{art.pic.url}}" alt="{{art.name}}" style="object-fit:cover;">
     </div>
+    <h3 class="text-center my-3">{{art.name}}</h3>
+    <h4 class="ms-3">Artist: {{art.artist.name}}</h4>
+    <h4 class="ms-3">Style: {{art.art_type}}</h4>
+    <h4 class="ms-3" style="color:#2ecc71;font-size:1.3rem;font-weight:800;">₹{{art.price}}</h4>
+    <p class="mx-3 mb-3" style="font-size:.85rem;color:#555;">{{art.desc}}</p>
+  </div>
+
+  <!-- Payment form -->
+  <div class="frm">
+    <h2 class="text-center beige mb-3" style="font-size:1.6rem;">Complete Payment</h2>
+    <p class="beige mb-3" style="font-size:.9rem;opacity:.8;text-align:center;">
+      Scan the QR code below and upload a screenshot of your payment.
+    </p>
+    <img class="d-block mx-auto mb-4" src="{% static 'images/QR.jpg' %}"
+      style="height:260px;width:260px;border-radius:1rem;box-shadow:0 4px 20px rgba(0,0,0,.3);" alt="Payment QR">
+
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="form-floating mb-3">
+        <input type="file" class="form-control" placeholder="" id="pic" name="pic" required accept="image/*">
+        <label for="pic">Upload Payment Screenshot</label>
+      </div>
+      <p class="beige mb-3" style="font-size:.82rem;opacity:.7;">
+        After uploading your screenshot, your order will be reviewed and confirmed by the artist.
+      </p>
+      <button type="submit" class="btna w-100">Place Order</button>
+    </form>
+  </div>
 </div>
 {%endblock%}
