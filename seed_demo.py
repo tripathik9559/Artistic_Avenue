@@ -3,7 +3,6 @@ Seed script — creates demo accounts + demo data.
 Run:  python manage.py shell -c "exec(open('seed_demo.py').read())"
 """
 import os, django
-
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Artistic_Avenue.settings')
 django.setup()
 
@@ -16,7 +15,6 @@ if not Portal.objects.filter(pid='admin001').exists():
 else:
     print("  Admin already exists")
 
-# keep old pid too
 if not Portal.objects.filter(pid='admin123').exists():
     Portal.objects.create(pid='admin123', password='Admin@2024', name='Admin2')
 
@@ -52,22 +50,24 @@ if created:
 else:
     print("  Demo User already exists")
 
-# ── Demo Artworks ─────────────────────────────────────────────────────────────
-# Using static/ paths — served by WhiteNoise, persist across deploys
+# ── Demo Artworks — DELETE old ones and recreate with correct static paths ────
+DEMO_NAMES = ['Crimson Dreams','Ocean Whispers','Urban Rhythm','Silent Forest','Golden Hour','Mind Mirror']
+
+# Delete existing demo artworks (they have wrong Arts/ paths)
+deleted = Art.objects.filter(name__in=DEMO_NAMES, artist=demo_artist).delete()
+print(f"  Deleted {deleted[0]} old demo artworks")
+
 demo_arts_data = [
-    dict(name='Crimson Dreams',  art_type='Abstract',     price='12500', forsale=True,  sold=False, desc='A bold abstract piece in deep crimson and gold.',      pic='demo_arts/abs.avif'),
-    dict(name='Ocean Whispers',  art_type='Surrealism',   price='18000', forsale=True,  sold=False, desc='Surrealist seascape in soft blues and greens.',         pic='demo_arts/b.avif'),
-    dict(name='Urban Rhythm',    art_type='Abstract',     price='9500',  forsale=True,  sold=False, desc='Chaos and beauty of urban landscapes in paint.',        pic='demo_arts/abs.avif'),
-    dict(name='Silent Forest',   art_type='Landscape',    price='22000', forsale=True,  sold=False, desc='Quiet woodland scene with light and shadow.',           pic='demo_arts/z.jpg'),
-    dict(name='Golden Hour',     art_type='Impressionism',price='15000', forsale=True,  sold=False, desc='Warm impressionist sunset with rich texture.',          pic='demo_arts/ala.jpg'),
-    dict(name='Mind Mirror',     art_type='Surrealism',   price='27500', forsale=False, sold=False, desc='Personal surrealist work — not for sale.',             pic='demo_arts/2921.jpg'),
+    dict(name='Crimson Dreams',  art_type='Abstract',      price='12500', forsale=True,  sold=False, desc='A bold abstract piece in deep crimson and gold.',    pic='demo_arts/abs.avif'),
+    dict(name='Ocean Whispers',  art_type='Surrealism',    price='18000', forsale=True,  sold=False, desc='Surrealist seascape in soft blues and greens.',       pic='demo_arts/b.avif'),
+    dict(name='Urban Rhythm',    art_type='Abstract',      price='9500',  forsale=True,  sold=False, desc='Chaos and beauty of urban landscapes in paint.',      pic='demo_arts/abs.avif'),
+    dict(name='Silent Forest',   art_type='Landscape',     price='22000', forsale=True,  sold=False, desc='Quiet woodland scene with light and shadow.',         pic='demo_arts/z.jpg'),
+    dict(name='Golden Hour',     art_type='Impressionism', price='15000', forsale=True,  sold=False, desc='Warm impressionist sunset with rich texture.',        pic='demo_arts/ala.jpg'),
+    dict(name='Mind Mirror',     art_type='Surrealism',    price='27500', forsale=False, sold=False, desc='Personal surrealist work — not for sale.',           pic='demo_arts/2921.jpg'),
 ]
-count = 0
 for ad in demo_arts_data:
-    if not Art.objects.filter(name=ad['name'], artist=demo_artist).exists():
-        Art.objects.create(artist=demo_artist, **ad)
-        count += 1
-print(f"✓ {count} demo artworks created")
+    Art.objects.create(artist=demo_artist, **ad)
+print(f"✓ {len(demo_arts_data)} demo artworks created with correct static paths")
 
 print("\nDone! Credentials:")
 print("  Artist → 9999900001 / demo@artist")
