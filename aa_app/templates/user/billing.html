@@ -1,4 +1,5 @@
 {%extends 'html/main.html'%}
+{% load art_tags %}
 {%load static%}
 {%block content%}
 
@@ -8,7 +9,7 @@
   <!-- Artwork card -->
   <div class="cards" style="width:320px;">
     <div class="imdiv">
-      <img src="{{art.pic.url}}" alt="{{art.name}}" style="object-fit:cover;">
+      <img src="{{art.pic|pic_url}}" alt="{{art.name}}" style="object-fit:cover;">
     </div>
     <h3 class="text-center my-3">{{art.name}}</h3>
     <h4 class="ms-3">Artist: {{art.artist.name}}</h4>

@@ -1,23 +1,26 @@
 """
 Seed script — creates demo accounts + demo data.
-Run:  python manage.py shell < seed_demo.py
-  or: python seed_demo.py   (from project root with DJANGO_SETTINGS_MODULE set)
+Run:  python manage.py shell -c "exec(open('seed_demo.py').read())"
 """
-import os, sys, django
+import os, django
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Artistic_Avenue.settings')
 django.setup()
 
-from aa_app.models import Artist, User, Portal, Art, Order, Event, Video, Pdf
+from aa_app.models import Artist, User, Portal, Art, Order
 
 # ── Demo Portal / Admin ───────────────────────────────────────────────────────
-if not Portal.objects.filter(pid='admin123').exists():
-    Portal.objects.create(pid='admin123', password='Admin@2024', name='Admin')
-    print("✓ Admin account created  →  ID: admin123 | PW: Admin@2024")
+if not Portal.objects.filter(pid='admin001').exists():
+    Portal.objects.create(pid='admin001', password='admin123', name='Admin')
+    print("✓ Admin created  →  ID: admin001 | PW: admin123")
 else:
     print("  Admin already exists")
 
-# ── Demo Artist Account ───────────────────────────────────────────────────────
+# keep old pid too
+if not Portal.objects.filter(pid='admin123').exists():
+    Portal.objects.create(pid='admin123', password='Admin@2024', name='Admin2')
+
+# ── Demo Artist ───────────────────────────────────────────────────────────────
 demo_artist, created = Artist.objects.get_or_create(
     phone='9999900001',
     defaults=dict(
@@ -25,54 +28,48 @@ demo_artist, created = Artist.objects.get_or_create(
         password='demo@artist',
         email='demo.artist@artisticavenue.com',
         category='Abstract',
-        bio='A passionate abstract artist exploring colour, form and emotion through canvas. Available for commissions.',
-        pic='Artists/su.jpeg',
+        bio='A passionate abstract artist exploring colour, form and emotion through canvas.',
+        pic='demo_artists/su.jpeg',
     )
 )
 if created:
-    print("✓ Demo Artist created     →  Phone: 9999900001 | PW: demo@artist")
+    print("✓ Demo Artist created  →  9999900001 / demo@artist")
 else:
     print("  Demo Artist already exists")
 
-# ── Demo User Account ─────────────────────────────────────────────────────────
+# ── Demo User ─────────────────────────────────────────────────────────────────
 demo_user, created = User.objects.get_or_create(
     phone='9999900002',
     defaults=dict(
         name='Demo User',
         password='demo@user',
         email='demo.user@artisticavenue.com',
-        pic='Users/pexels-moose-photos-170195-1036623.jpg',
+        pic='',
     )
 )
 if created:
-    print("✓ Demo User created       →  Phone: 9999900002 | PW: demo@user")
+    print("✓ Demo User created  →  9999900002 / demo@user")
 else:
     print("  Demo User already exists")
 
-# ── Demo Artworks for Demo Artist ────────────────────────────────────────────
+# ── Demo Artworks ─────────────────────────────────────────────────────────────
+# Using static/ paths — served by WhiteNoise, persist across deploys
 demo_arts_data = [
-    dict(name='Crimson Dreams', art_type='Abstract',    price='12500', forsale=True,  sold=False, desc='A bold abstract piece in deep crimson and gold, exploring dreams and ambition.',          pic='Arts/abs.avif'),
-    dict(name='Ocean Whispers', art_type='Surrealism',  price='18000', forsale=True,  sold=False, desc='Surrealist seascape merging reality and imagination in soft blues and greens.',           pic='Arts/b.avif'),
-    dict(name='Urban Rhythm',   art_type='Abstract',    price='9500',  forsale=True,  sold=False, desc='Inspired by city life — the chaos and beauty of urban landscapes captured in paint.',    pic='Arts/abs.avif'),
-    dict(name='Silent Forest',  art_type='Landscape',   price='22000', forsale=True,  sold=False, desc='Quiet woodland scene painted with meticulous attention to light and shadow.',            pic='Arts/z.jpg'),
-    dict(name='Golden Hour',    art_type='Impressionism',price='15000',forsale=True,  sold=False, desc='Warm impressionist sunset study, rich with texture and atmospheric light.',              pic='Arts/ala.jpg'),
-    dict(name='Mind Mirror',    art_type='Surrealism',  price='27500', forsale=False, sold=False, desc='A deeply personal surrealist work — not for sale, part of the permanent collection.',   pic='Arts/2921.jpg'),
+    dict(name='Crimson Dreams',  art_type='Abstract',     price='12500', forsale=True,  sold=False, desc='A bold abstract piece in deep crimson and gold.',      pic='demo_arts/abs.avif'),
+    dict(name='Ocean Whispers',  art_type='Surrealism',   price='18000', forsale=True,  sold=False, desc='Surrealist seascape in soft blues and greens.',         pic='demo_arts/b.avif'),
+    dict(name='Urban Rhythm',    art_type='Abstract',     price='9500',  forsale=True,  sold=False, desc='Chaos and beauty of urban landscapes in paint.',        pic='demo_arts/abs.avif'),
+    dict(name='Silent Forest',   art_type='Landscape',    price='22000', forsale=True,  sold=False, desc='Quiet woodland scene with light and shadow.',           pic='demo_arts/z.jpg'),
+    dict(name='Golden Hour',     art_type='Impressionism',price='15000', forsale=True,  sold=False, desc='Warm impressionist sunset with rich texture.',          pic='demo_arts/ala.jpg'),
+    dict(name='Mind Mirror',     art_type='Surrealism',   price='27500', forsale=False, sold=False, desc='Personal surrealist work — not for sale.',             pic='demo_arts/2921.jpg'),
 ]
-created_count = 0
+count = 0
 for ad in demo_arts_data:
     if not Art.objects.filter(name=ad['name'], artist=demo_artist).exists():
         Art.objects.create(artist=demo_artist, **ad)
-        created_count += 1
-print(f"✓ {created_count} demo artworks created for Demo Artist")
+        count += 1
+print(f"✓ {count} demo artworks created")
 
-# ── Demo Order ────────────────────────────────────────────────────────────────
-# pick an already-sold art for the demo order so shop is clean
-sold_art = Art.objects.filter(sold=True).first()
-if sold_art and not Order.objects.filter(user=demo_user, art=sold_art).exists():
-    Order.objects.create(user=demo_user, art=sold_art, payment='', status='Confirmed')
-    print("✓ Demo order created")
-
-print("\nAll done! Demo credentials:")
-print("  Artist  →  Phone: 9999900001  Password: demo@artist")
-print("  User    →  Phone: 9999900002  Password: demo@user")
-print("  Admin   →  ID: admin123        Password: Admin@2024  (not shown on login page)")
+print("\nDone! Credentials:")
+print("  Artist → 9999900001 / demo@artist")
+print("  User   → 9999900002 / demo@user")
+print("  Admin  → admin001 / admin123")

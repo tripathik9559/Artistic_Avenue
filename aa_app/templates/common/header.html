@@ -1,3 +1,4 @@
+{% load art_tags %}
 {%load static%}
 <nav class="navbar navbar-expand-lg navbar mx-5 border-dark border-bottom" style="backdrop-filter: blur(5px); z-index: 3;" >
   <div class="container-fluid">
@@ -35,7 +36,7 @@
       </ul>
       {%if request.session.session_key and user.name%}
       {%if user.pic%}
-            <img src="{{user.pic.url}}" style="height: 50px; width: 50px; border-radius: 50%;" alt="">
+            <img src="{{user.pic|pic_url}}" style="height: 50px; width: 50px; border-radius: 50%;" alt="">
             {%endif%}
       <ul class="navbar-nav me-5 mb-2 mb-lg-0">
         <li class=" dropdown">

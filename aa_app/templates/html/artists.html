@@ -1,4 +1,5 @@
 {%extends 'html/main.html'%}
+{% load art_tags %}
 {%load static%}
 {%block content%}
 
@@ -32,7 +33,7 @@
   {%for a in obj%}
   <div class="cards" style="width:320px;">
     <div class="imdiv">
-      <img src="{{a.pic.url}}" alt="{{a.name}}" style="object-fit:cover;">
+      <img src="{{a.pic|pic_url}}" alt="{{a.name}}" style="object-fit:cover;">
     </div>
     <h3 class="text-center my-3">{{a.name}}</h3>
     <h4 class="ms-3">{{a.category}}</h4>

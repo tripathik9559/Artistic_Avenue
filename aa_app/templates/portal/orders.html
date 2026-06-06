@@ -1,4 +1,5 @@
 {%extends 'portal/main.html'%}
+{% load art_tags %}
 {%block title%}Manage Orders{%endblock title%}
 {%block content%}
 
@@ -8,7 +9,7 @@
 <div class="dc">
   {%for o in orders%}
   <div class="cardss" style="width:320px;">
-    <div class="imdiv"><img src="{{o.art.pic.url}}" alt="" style="object-fit:cover;"></div>
+    <div class="imdiv"><img src="{{o.art.pic|pic_url}}" alt="" style="object-fit:cover;"></div>
     <h3 class="mx-4 mt-3">{{o.art.name}}</h3>
     <h4 class="mx-4">Buyer: {{o.user.name}}</h4>
     <h4 class="mx-4">Artist: {{o.art.artist.name}}</h4>

@@ -1,4 +1,5 @@
 {%extends 'html/main.html'%}
+{% load art_tags %}
 {%load static%}
 {%block content%}
 
@@ -14,7 +15,7 @@
 <div class="dc">
     <div class="frm">
         <div class="d-flex p-0 mb-4">
-            <img src="{{receiver.pic.url}}" style="height: 70px; width: 70px; border-radius: 50%;" alt="">
+            <img src="{{receiver.pic|pic_url}}" style="height: 70px; width: 70px; border-radius: 50%;" alt="">
             <h3 class="ms-3 mt-2 beige">{{receiver.name}}</h3>
         </div>
         <div class="mb-4 px-2" style="overflow: scroll; scroll-behavior: auto; height: 300px !important;">

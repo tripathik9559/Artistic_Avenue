@@ -1,4 +1,5 @@
 {%extends 'artist/main.html'%}
+{% load art_tags %}
 {%block content%}
 
 <!-- ── Dashboard Stats ───────────────────────────────────────────────────── -->
@@ -37,7 +38,7 @@
   {%for a in Aobj%}
   <div class="cards" style="width:300px;">
     <div class="imdiv">
-      <img src="{{a.pic.url}}" alt="{{a.name}}" style="object-fit:cover;">
+      <img src="{{a.pic|pic_url}}" alt="{{a.name}}" style="object-fit:cover;">
     </div>
     <h3 class="text-center mb-2">{{a.name}}</h3>
     <h4 class="ms-3">{{a.art_type}}</h4>
@@ -62,7 +63,7 @@
 <div class="dc">
   {%for o in Oobj%}
   <div class="cardss" style="width:300px;">
-    <div class="imdiv"><img src="{{o.art.pic.url}}" alt="" style="object-fit:cover;"></div>
+    <div class="imdiv"><img src="{{o.art.pic|pic_url}}" alt="" style="object-fit:cover;"></div>
     <h3 class="mx-4 mt-3">{{o.art.name}}</h3>
     <h4 class="mx-4">By: {{o.user.name}}</h4>
     <h4 class="mx-4">₹{{o.art.price}}</h4>

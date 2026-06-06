@@ -1,4 +1,5 @@
 {%extends 'html/main.html'%}
+{% load art_tags %}
 {%load static%}
 {%block content%}
 <h1 class="pacifico mb-5 beige text-center" style="margin-top: 7vh ;font-size: 4.5rem; font-weight: 900;">Events</h1>
@@ -7,7 +8,7 @@
     {%for a in obj%}
     <div class="cards" style="width: 350px; ">
         <div class="imdiv">
-            <img src="{{a.pic.url}}" alt="">
+            <img src="{{a.pic|pic_url}}" alt="">
         </div>
         <h3 class="text-center my-3">{{a.name}}</h3>
         <h4 class="ms-3">Organized By: {{a.artist.name}}{{a.admin.name}}</h4>

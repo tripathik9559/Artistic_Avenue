@@ -1,4 +1,5 @@
 {%extends 'html/main.html'%}
+{% load art_tags %}
 {%load static%}
 {%block content%}
 
@@ -6,7 +7,7 @@
 <div style="background:rgba(0,0,0,.5);backdrop-filter:blur(10px);padding:3rem 2rem;margin:2rem 1.5rem;border-radius:2rem;">
   <div class="d-flex flex-column flex-md-row align-items-center gap-4">
     {%if artist_obj.pic%}
-    <img src="{{artist_obj.pic.url}}" alt="{{artist_obj.name}}"
+    <img src="{{artist_obj.pic|pic_url}}" alt="{{artist_obj.name}}"
       style="height:160px;width:160px;border-radius:50%;object-fit:cover;border:4px solid rgba(255,255,255,.3);box-shadow:0 8px 30px rgba(0,0,0,.4);">
     {%endif%}
     <div>
@@ -50,7 +51,7 @@
   {%for a in obj%}
   <div class="cards" style="width:320px;">
     <div class="imdiv">
-      <img src="{{a.pic.url}}" alt="{{a.name}}" style="object-fit:cover;">
+      <img src="{{a.pic|pic_url}}" alt="{{a.name}}" style="object-fit:cover;">
     </div>
     <h3 class="text-center my-3">{{a.name}}</h3>
     <h4 class="ms-3">{{a.art_type}}</h4>

@@ -1,4 +1,5 @@
 {%extends 'html/main.html'%}
+{% load art_tags %}
 {%load static%}
 {%block content%}
 
@@ -29,9 +30,9 @@
 
 <div class="dc">
   {%for a in obj%}
-  <div class="cards" style="width:320px;" onclick="window.location.href='{{a.pic.url}}';" style="cursor:pointer;">
+  <div class="cards" style="width:320px;" onclick="window.location.href='{{a.pic|pic_url}}';" style="cursor:pointer;">
     <div class="imdiv">
-      <img src="{{a.pic.url}}" alt="{{a.name}}" style="object-fit:cover;">
+      <img src="{{a.pic|pic_url}}" alt="{{a.name}}" style="object-fit:cover;">
     </div>
     <h3 class="text-center mb-2">{{a.name}}</h3>
     <h5 class="text-center mb-3">{{a.art_type}} · {{a.artist.name}}</h5>

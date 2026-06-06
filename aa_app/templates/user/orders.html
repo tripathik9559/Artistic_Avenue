@@ -1,4 +1,5 @@
 {%extends 'html/main.html'%}
+{% load art_tags %}
 {%block content%}
 
 <h1 class="pacifico beige mb-4 text-center" style="margin-top:7vh;font-size:clamp(2.5rem,5vw,4rem);font-weight:900;">My Orders</h1>
@@ -7,7 +8,7 @@
 <div class="dc">
   {%for o in obj%}
   <div class="cardss" style="width:320px;">
-    <div class="imdiv"><img src="{{o.art.pic.url}}" alt="" style="object-fit:cover;"></div>
+    <div class="imdiv"><img src="{{o.art.pic|pic_url}}" alt="" style="object-fit:cover;"></div>
     <h3 class="mx-4 mt-3">{{o.art.name}}</h3>
     <h4 class="mx-4">Artist: {{o.art.artist.name}}</h4>
     <h4 class="mx-4">₹{{o.art.price}}</h4>
